@@ -10,7 +10,15 @@
                     <div 
                         class="progress-bar bg-primary progress-bar-striped active" 
                         style="height:10px;"
-                        [style.width]="getProgreso"
+                        [style.width]="50"
+                        role="progressbar"> <span class="sr-only">85% Complete (success)</span> </div>
+                </div>
+
+                <div class="progress m-t-20">
+                    <div 
+                        class="progress-bar bg-primary progress-bar-striped active" 
+                        style="height:10px;"
+                        [style.width]="50"
                         role="progressbar"> <span class="sr-only">85% Complete (success)</span> </div>
                 </div>
 
@@ -26,32 +34,7 @@
         <div class="card">
             <div class="card-body">
 
-                <div class="input-group">
-                    <span class="input-group-btn">
-                        <button 
-                            class="btn btn-primary" 
-                            type="button"
-                            (click)="cambiarValor(-5)">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </span>
-
-                    <input 
-                        type="number" 
-                        class="form-control" 
-                        placeholder="Progreso"
-                        [(ngModel)]="progreso"
-                    >
-
-                    <span class="input-group-btn">
-                        <button 
-                            class="btn btn-primary" 
-                            type="button"
-                            (click)="cambiarValor(5)">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </span>
-                </div>
+                <app-incrementador></app-incrementador>
 
             </div>
         </div>
@@ -61,7 +44,7 @@
         <div class="card">
             <div class="card-body">
 
-                2
+                <app-incrementador></app-incrementador>
 
             </div>
         </div>
