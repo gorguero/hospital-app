@@ -7,15 +7,19 @@ import { Component } from '@angular/core';
 })
 export class ProgressComponent {
 
-  progreso1: number = 15;
-  progreso2: number = 10;
+  progress1: number = 25;
+  progress2: number = 10;
 
-  get getProgreso1(){
-    return `${this.progreso1}%`;
+  get getProgress1(){
+    return `${this.progress1}%`;
   }
 
-  get getProgreso2(){
-    return `${this.progreso2}%`;
+  get getProgress2(){
+    return `${this.progress2}%`;
+  }
+
+  cambioValorHijo( valor:number ){
+    console.log(valor)
   }
 
 }

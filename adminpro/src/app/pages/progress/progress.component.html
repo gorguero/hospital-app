@@ -10,16 +10,18 @@
                     <div 
                         class="progress-bar bg-primary progress-bar-striped active" 
                         style="height:10px;"
-                        [style.width]="getProgreso1"
-                        role="progressbar"> <span class="sr-only">85% Complete (success)</span> </div>
+                        [style.width]="getProgress1"
+                        role="progressbar"> 
+                    </div>
                 </div>
 
                 <div class="progress m-t-20">
                     <div 
                         class="progress-bar bg-info progress-bar-striped active" 
                         style="height:10px;"
-                        [style.width]="getProgreso2"
-                        role="progressbar"> <span class="sr-only">85% Complete (success)</span> </div>
+                        [style.width]="getProgress2"
+                        role="progressbar">
+                    </div>
                 </div>
 
             </div>
@@ -35,9 +37,9 @@
             <div class="card-body">
 
                 <app-incrementador 
-                    [valor]="progreso1" 
-                    (valorSalida)="progreso1 = $event" >
-                </app-incrementador>
+                    (valorSalida)="progress1 = $event"
+                    [valorProgreso]="progress1" 
+                ></app-incrementador>
 
             </div>
         </div>
@@ -48,8 +50,8 @@
             <div class="card-body">
 
                 <app-incrementador 
-                    [valor]="progreso2" 
-                    (valorSalida)="progreso2 = $event" 
+                    (valorSalida)="progress2 = $event"
+                    [valorProgreso]="progress2" 
                     [btnClass]="'btn btn-info'">
                 </app-incrementador>
 
