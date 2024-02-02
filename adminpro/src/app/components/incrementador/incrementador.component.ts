@@ -28,10 +28,22 @@ export class IncrementadorComponent implements OnInit{
       this.progreso = 0;
     } else{
       this.progreso = this.progreso + valor;
-      console.log(this.progreso)
       this.valorSalida.emit( this.progreso );
     }
 
+  }
+
+  onChange( valorIngresado:number ){
+    
+    if( valorIngresado >= 100 ){
+      this.progreso = 100;
+    }else if( valorIngresado <= 0){
+      this.progreso = 0;
+    }else{
+      this.progreso = valorIngresado;
+    }
+
+    this.valorSalida.emit( this.progreso );
   }
 
 }

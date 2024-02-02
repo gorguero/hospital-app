@@ -18,8 +18,5 @@ export class ProgressComponent {
     return `${this.progress2}%`;
   }
 
-  cambioValorHijo( valor:number ){
-    console.log(valor)
-  }
 
 }
