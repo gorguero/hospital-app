@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-account-setting',
@@ -6,6 +6,19 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
-export class AccountSettingComponent {
+export class AccountSettingComponent implements OnInit{
+
+  public linkTheme = document.querySelector('#theme');
+
+  ngOnInit(): void {}
+
+  changeTheme( theme: string ){
+    
+    const url = `./assets/css/colors/${theme}.css`;
+
+    this.linkTheme?.setAttribute('href', url);
+    localStorage.setItem('theme', url);
+
+  }
 
 }
