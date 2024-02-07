@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import {retry} from 'rxjs/operators';
 
 @Component({
   selector: 'app-rxjs',
@@ -31,11 +32,14 @@ export class RxjsComponent {
 
     });
 
-    obs$.subscribe(
-      valor => console.log('Subs:', valor ),
-      error => console.warn('Error: ', error),
-      () => console.info('Obs terminado')
-    );
+    obs$.pipe(
+      retry()
+    )
+    .subscribe({
+      next: (valor) => console.log('Subs:', valor ),
+      error: (error) => console.warn('Error: ', error),
+      complete: () => console.info('obs terminado')
+    });
 
   }
 
