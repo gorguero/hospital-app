@@ -66,14 +66,14 @@ export class LoginComponent implements AfterViewInit{
           }else{
             localStorage.removeItem('email');
           }
-          
+          this.router.navigateByUrl('/');
         },
         error: err => {
           Swal.fire('Error', err.error.msg, 'error');
         }
       })
 
-    this.router.navigateByUrl('/');
+    
   }
 
 }
