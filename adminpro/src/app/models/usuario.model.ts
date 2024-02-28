@@ -21,7 +21,7 @@ export class Usuario{
         if( this.img ){
             return `${base_url}/uploads/usuarios/${this.img}`;
         }else{
-            return `${base_url}uploads/usuarios/no-image`;
+            return `${base_url}/uploads/usuarios/no-image`;
         }
     }
 
