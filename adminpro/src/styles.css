@@ -9,3 +9,15 @@
 #themecolors .selector{
     cursor: pointer;
 }
+
+#googleBtn{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.img-avatar{
+    width: 200px;
+    height: 200px;
+}
