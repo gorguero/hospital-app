@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario.model';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -6,6 +8,21 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
-export class UsuariosComponent {
+export class UsuariosComponent implements OnInit{
 
+  public totalUsuarios:number = 0;
+  public usuarios:Usuario[] = [];
+
+  constructor( private usuarioService:UsuarioService ){}
+
+  ngOnInit(): void {
+    this.usuarioService.cargarUsuarios(0)
+      .subscribe({
+        next: ({totalUsers, usuarios}) => {
+          this.totalUsuarios = totalUsers;
+          this.usuarios = usuarios;
+        }
+      })
+  }
+  
 }

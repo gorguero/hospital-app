@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from 'src/environments/environment';
-import { LoginForm } from '../interfaces/login-form.interface';
 import { Usuario } from '../models/usuario.model';
+
+import { RegisterForm } from '../interfaces/register-form.interface';
+import { LoginForm } from '../interfaces/login-form.interface';
+import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
 
 const base_url = environment.base_url;
 
@@ -27,6 +29,14 @@ export class UsuarioService {
 
   get uid():string{
     return this.usuario.uid || '';
+  }
+
+  get headers(){
+    return {
+      headers: {
+        'x-token': this.token
+      }
+    }
   }
 
   registrarUsuario( formData: RegisterForm ){
@@ -96,6 +106,11 @@ export class UsuarioService {
       this.router.navigateByUrl('/login');
     })
 
+  }
+
+  cargarUsuarios( desde:number = 0 ){
+    const url = `${base_url}/usuarios?desde=${desde}`;
+    return this.http.get<CargarUsuario>( url, this.headers);
   }
 
 }
