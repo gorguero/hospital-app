@@ -98,4 +98,11 @@ export class UsuariosComponent implements OnInit{
     return;
   }
   
+  cambiarRole( usuario:Usuario ){
+    this.usuarioService.guardarUsuario(usuario)
+      .subscribe({
+        next: resp => console.log(usuario)
+      });
+  }
+
 }
