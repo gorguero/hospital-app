@@ -1,7 +1,7 @@
 interface _HospitalUser{
     _id:string;
     nombre:string;
-    img:string;
+    email:string;
 }
 
 
