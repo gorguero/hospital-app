@@ -19,7 +19,7 @@ export class HospitalesComponent implements OnInit{
 
   ngOnInit(): void {
 
-    // this.cargarHospitales();
+    this.cargarHospitales();
     this.hospitalService.cargarHospitales()
         .subscribe( resp => {
           console.log(resp)
@@ -27,28 +27,28 @@ export class HospitalesComponent implements OnInit{
 
   }
 
-  // cargarHospitales(){
-  //   this.cargando = true;
-  //   this.hospitalService.cargarHospitales(this.desde)
-  //     .subscribe({
-  //       next: ({total, hospitales}) => {
-  //         this.cargando = false;
-  //         this.hospitales = hospitales;
-  //         this.totalHospitales = total;
-  //       }
-  //     })
-  // }
+  cargarHospitales(){
+    this.cargando = true;
+    this.hospitalService.cargarHospitales(this.desde)
+      .subscribe({
+        next: ({total, hospitales}) => {
+          this.cargando = false;
+          this.hospitales = hospitales;
+          this.totalHospitales = total;
+        }
+      })
+  }
 
-  // cambiarPagina( valor:number ){
-  //   this.desde += valor;
+  cambiarPagina( valor:number ){
+    this.desde += valor;
 
-  //   if( this.desde < 0 ){
-  //     this.desde = 0;
-  //   }else if( this.desde >= this.totalHospitales ){
-  //     this.desde -= valor;
-  //   }
+    if( this.desde < 0 ){
+      this.desde = 0;
+    }else if( this.desde >= this.totalHospitales ){
+      this.desde -= valor;
+    }
 
-  //   this.cargarHospitales();
-  // }
+    this.cargarHospitales();
+  }
 
 }
