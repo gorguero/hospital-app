@@ -38,7 +38,8 @@
 
                     <div class="col">
                         <div class="text-right">
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary"
+                                (click)="abrirSweetAlert()">
                                 <i class="fa fa-hospital-o"></i>
                                 Crear hospital
                             </button>
@@ -54,7 +55,7 @@
                             <tr>
                                 <th class="w100">Foto</th>
                                 <th>Nombre</th>
-                                <th class="text-nowrap">Acciones</th>
+                                <th class="text-nowrap w100">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,7 +63,8 @@
                                 <td class="text-center">
                                     <img [src]="hospital.img! | imagen:'hospitales'" 
                                         class="avatar cursor"
-                                        [alt]="hospital.nombre">
+                                        [alt]="hospital.nombre"
+                                        (click)="abrirModal(hospital)">
                                 </td>
                                 <td>
                                     <input type="text"
@@ -71,8 +73,18 @@
                                         [(ngModel)]="hospital.nombre">
                                 </td>
                                 <td class="text-nowrap">
-                                    <a href="#" data-toggle="tooltip" data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                    <a href="#" data-toggle="tooltip" data-original-title="Borrar"> <i class="fa fa-close text-danger"></i> </a>
+                                    <a (click)="guardarCambios(hospital)"
+                                        class="cursor" 
+                                        data-toggle="tooltip" 
+                                        data-original-title="Editar"> 
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i> 
+                                    </a>
+                                    <a (click)="borrarHospital(hospital)"
+                                        class="cursor"
+                                        data-toggle="tooltip" 
+                                        data-original-title="Borrar"> 
+                                        <i class="fa fa-close text-danger"></i> 
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>
