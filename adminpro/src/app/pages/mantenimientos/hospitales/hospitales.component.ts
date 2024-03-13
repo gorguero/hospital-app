@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription, delay } from 'rxjs';
 import { Hospital } from 'src/app/models/hospital.model';
+import { BusquedasService } from 'src/app/services/busquedas.service';
 import { HospitalService } from 'src/app/services/hospital.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 import Swal from 'sweetalert2';
@@ -15,11 +16,16 @@ export class HospitalesComponent implements OnInit{
 
   public totalHospitales:number = 0;
   public hospitales: Hospital[] = [];
+  public hospitalesTemporales: Hospital[] = [];
   public cargando: boolean = true;
   public desde:number = 0;
   private imgSubs!:Subscription;
 
-  constructor(private hospitalService:HospitalService, private modalImagenService:ModalImagenService){}
+  constructor(
+    private hospitalService:HospitalService, 
+    private modalImagenService:ModalImagenService,
+    private buscarService:BusquedasService
+    ){}
 
   ngOnInit(): void {
 
@@ -42,6 +48,7 @@ export class HospitalesComponent implements OnInit{
         next: ({total, hospitales}) => {
           this.cargando = false;
           this.hospitales = hospitales;
+          this.hospitalesTemporales = hospitales;
           this.totalHospitales = total;
         }
       })
@@ -60,7 +67,7 @@ export class HospitalesComponent implements OnInit{
   }
   
   guardarCambios(hospital:Hospital){
-    this.hospitalService.actualizarHospital( hospital.uid, hospital.nombre )
+    this.hospitalService.actualizarHospital( hospital.uid!, hospital.nombre )
       .subscribe({
         next: resp => {
           Swal.fire( 'Actualizado', hospital.nombre, 'success' );
@@ -72,7 +79,7 @@ export class HospitalesComponent implements OnInit{
   }
 
   borrarHospital( hospital:Hospital ){
-    this.hospitalService.borrarHospital(hospital.uid)
+    this.hospitalService.borrarHospital(hospital.uid!)
       .subscribe({
         next: resp => {
           this.cargarHospitales();
@@ -106,6 +113,22 @@ export class HospitalesComponent implements OnInit{
 
   abrirModal(hospital:Hospital){
     this.modalImagenService.abrirModal('hospitales', hospital.uid!, hospital.img );
+  }
+
+  buscar(termino:string){
+    
+    if( termino.length === 0 ){
+      return this.hospitales = this.hospitalesTemporales;
+    }
+
+    this.buscarService.buscar('hospitales', termino)
+      .subscribe({
+        next: resutados => {
+          this.hospitales = resutados;
+        }
+      })
+    
+    return;
   }
 
 }
