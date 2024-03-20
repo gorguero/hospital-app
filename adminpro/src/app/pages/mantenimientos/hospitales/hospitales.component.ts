@@ -112,7 +112,7 @@ export class HospitalesComponent implements OnInit{
   }
 
   abrirModal(hospital:Hospital){
-    this.modalImagenService.abrirModal('hospitales', hospital.uid!, hospital.img );
+    this.modalImagenService.abrirModal('hospitales', hospital.uid!, hospital.img! );
   }
 
   buscar(termino:string){
