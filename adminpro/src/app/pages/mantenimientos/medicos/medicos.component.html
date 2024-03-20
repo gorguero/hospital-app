@@ -5,7 +5,9 @@
 
                 <input type="text"
                     class="form-control"
-                    placeholder="Buscar médico">
+                    placeholder="Buscar médico"
+                    #txtTermino
+                    (keyup)="buscar(txtTermino.value)">
 
             </div>
         </div>
@@ -30,8 +32,25 @@
         <div class="card">
             <div class="card-body">
                 
-                <h4 class="card-title">Médicos</h4>
-                <h6 class="card-subtitle">Listado de médicos registrados.</h6>
+                <div class="row">
+                    
+                    <div class="col-8">
+                        <h4 class="card-title">Médicos</h4>
+                        <h6 class="card-subtitle">Listado de médicos registrados.</h6>
+                    </div>
+
+                    <div class="col">
+                        <div class="text-right">
+                            <button class="btn btn-primary"
+                                routerLink="/dashboard/medico/nuevo">
+                                <i class="fa fa-hospital-o"></i>
+                                Crear Médico
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -53,7 +72,10 @@
                                     {{medico.nombre}}
                                 </td>
                                 <td class="text-nowrap text-center">
-                                    <a href="#" data-toggle="tooltip" data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                    <a [routerLink]="['/dashboard', 'medico', medico.uid]" 
+                                        data-toggle="tooltip" 
+                                        data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> 
+                                    </a>
                                     <a href="#" data-toggle="tooltip" data-original-title="Borrar"> <i class="fa fa-close text-danger"></i> </a>
                                 </td>
                             </tr>
