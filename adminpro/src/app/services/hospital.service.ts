@@ -26,6 +26,7 @@ export class HospitalService {
     }
   }
 
+  //Con paginado
   cargarHospitales( desde:number = 0 ){
     const url = `${base_url}/hospital?desde=${desde}`;
     return this.http.get<CargarHospitales>(url, this.headers)
@@ -37,6 +38,11 @@ export class HospitalService {
           }
         } )
       );
+  }
+
+  cargarUnpagedHospitales(){
+    const url = `${base_url}/hospital/unpaged`;
+    return this.http.get(url, this.headers);
   }
 
   crearHospital( nombre:string ){
