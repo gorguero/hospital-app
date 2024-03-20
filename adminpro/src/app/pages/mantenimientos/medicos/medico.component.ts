@@ -13,7 +13,11 @@ export class MedicoComponent implements OnInit{
   public medicoForm!:FormGroup;
   public hospitales:Hospital[] = [];
 
-  constructor(private fb:FormBuilder, private hospitalService:HospitalService){}
+  public hospitalSeleccionado:Hospital;
+
+  constructor(private fb:FormBuilder, private hospitalService:HospitalService){
+    this.hospitalSeleccionado = new Hospital('','','');
+  }
 
   ngOnInit(): void {
 
@@ -24,13 +28,22 @@ export class MedicoComponent implements OnInit{
 
     this.cargarHospitales();
 
+    this.medicoForm.get('hospital')?.valueChanges
+      .subscribe( hospitalID => {
+        if (hospitalID !== undefined) {
+          const hospitalEncontrado = this.hospitales.find(hospital => hospital.uid === hospitalID);
+          if (hospitalEncontrado !== undefined) {
+            this.hospitalSeleccionado = hospitalEncontrado;
+          }
+        }
+      });
+
   }
 
   cargarHospitales(){
     this.hospitalService.cargarUnpagedHospitales()
       .subscribe({
         next: (hospitales:any) => {
-          console.log(hospitales)
           this.hospitales = hospitales;
         }
       })
