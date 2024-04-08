@@ -18,7 +18,7 @@ export class MedicoComponent implements OnInit{
   public hospitales:Hospital[] = [];
 
   public hospitalSeleccionado:Hospital;
-  public medicoSeleccionado:Medico;
+  public medicoSeleccionado!:Medico;
 
   constructor(
     private fb:FormBuilder, 
@@ -28,7 +28,6 @@ export class MedicoComponent implements OnInit{
     private activatedRoute:ActivatedRoute
   ){
     this.hospitalSeleccionado = new Hospital('','','');
-    this.medicoSeleccionado = new Medico('','','');
   }
 
   ngOnInit(): void {
@@ -64,21 +63,57 @@ export class MedicoComponent implements OnInit{
   }
 
   guardarMedico(){
+
     const {nombre} = this.medicoForm.value;
-    this.medicoService.crearMedico( this.medicoForm.value )
-      .subscribe({
-        next: (resp:any) => {
-          Swal.fire('Creado', `${nombre} creado correctamente`, 'success');
-          this.router.navigateByUrl(`/dashboard/medico/${ resp.medico.uid }`);
-        }
-      })
+
+
+    if(this.medicoSeleccionado){
+
+      const data = {
+        ...this.medicoForm.value,
+        uid: this.medicoSeleccionado.uid
+      }
+      this.medicoService.actualizarMedico( data )
+        .subscribe({
+          next: (resp:any) => {
+            Swal.fire('Actualizado', `${nombre} fue editado correctamente`, 'success');
+            console.log(resp)
+          },
+          error: err => console.log(err)
+        })
+
+    }else{
+
+      this.medicoService.crearMedico( this.medicoForm.value )
+        .subscribe({
+          next: (resp:any) => {
+            Swal.fire('Creado', `${nombre} creado correctamente`, 'success');
+            this.router.navigateByUrl(`/dashboard/medico/${ resp.medico.uid }`);
+          }
+        });
+
+    }
+
+    
   }
 
   cargarMedico(id:string){
+
+    if(id === 'nuevo'){
+      return;
+    }
     
     this.medicoService.obtenerMedicoPorId(id)
       .subscribe( medico => {
+
+        // if( !medico ){
+        //   this.router.navigateByUrl(`/dashboard/medicos`);
+        //   return;
+        // }
+
+        const { nombre, hospital:{_id} } = medico;
         this.medicoSeleccionado = medico;
+        this.medicoForm.setValue({ nombre, hospital: _id });
       })
 
   }
