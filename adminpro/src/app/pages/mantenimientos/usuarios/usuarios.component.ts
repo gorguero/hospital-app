@@ -57,7 +57,7 @@ export class UsuariosComponent implements OnInit, OnDestroy{
 
     if( this.desde < 0 ){
       this.desde = 0;
-    }else if( this.desde > this.totalUsuarios ){
+    }else if( this.desde >= this.totalUsuarios ){
       this.desde -= valor;
     }
 
@@ -72,7 +72,7 @@ export class UsuariosComponent implements OnInit, OnDestroy{
     
     this.busquedaService.buscar( 'usuarios', termino )
       .subscribe({
-        next: resultados => {
+        next: (resultados:any) => {
           this.usuarios = resultados;
         }
       })
