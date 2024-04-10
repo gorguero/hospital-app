@@ -22,4 +22,8 @@ export class HeaderComponent {
     this.router.navigateByUrl('/login');
   }
 
+  buscar(termino:string){
+    console.log(termino)
+  }
+
 }
