@@ -23,7 +23,12 @@ export class HeaderComponent {
   }
 
   buscar(termino:string){
-    console.log(termino)
+
+    if(termino.length === 0){
+      return;
+    }
+
+    this.router.navigateByUrl(`/dashboard/buscar/${termino}`);
   }
 
 }
