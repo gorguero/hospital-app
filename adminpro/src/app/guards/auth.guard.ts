@@ -7,6 +7,7 @@ import { tap } from 'rxjs';
 
 export const AuthGuard: CanActivateFn = (route, state) => {
   
+  /* Mantiene el token validado */
   const usuarioService = inject(UsuarioService);
   const router = inject(Router);
 
